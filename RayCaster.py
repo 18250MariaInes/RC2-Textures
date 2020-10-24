@@ -157,7 +157,7 @@ r = Raycaster(screen)
 
 #r.setColor( (128,0,0) )
 #se carga el mapa del nivel del juego en base al .txt
-r.load_map('map2.txt')
+r.load_map('map.txt')
 
 isRunning = True
 
