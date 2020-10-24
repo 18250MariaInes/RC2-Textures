@@ -2,7 +2,7 @@
 Maria Ines Vasquez Figueroa
 18250
 Gráficas
-RC1 3D World
+RC2 Textures
 Main
 """
 
@@ -18,6 +18,8 @@ BACKGROUND = (62,3,4)
     '2' : (255, 48, 28),
     '3' : (149, 0, 22)
     }"""
+
+#textures for blocks
 textures = {
     '1' : pygame.image.load('block1.png'),
     '2' : pygame.image.load('block5.png'),
@@ -45,9 +47,6 @@ class Raycaster(object):
             "angle" : 0,
             "fov" : 60
             }
-
-    """def setColor(self, color):
-        self.blockColor = color"""
     
     #carga del mapa del nivel
     def load_map(self, filename):
@@ -81,7 +80,7 @@ class Raycaster(object):
             if self.map[j][i] != ' ':
                 hitX = x - i*self.blocksize
                 hitY = y - j*self.blocksize
-
+                #code for collisions
                 if 1 < hitX < self.blocksize - 1:
                     maxHit = hitX
                 else:
@@ -123,7 +122,7 @@ class Raycaster(object):
 
             start = int( halfHeight - h/2)
             end = int( halfHeight + h/2)
-
+            #carga de imagenes para los bloques
             img = textures[wallType]
             tx = int(tx * img.get_width())
 
@@ -148,6 +147,7 @@ screen.set_alpha(None)
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("Arial", 30)
 
+#get FPS of game, normally between 3-6 in my project
 def updateFPS():
     fps = str(int(clock.get_fps()))
     fps = font.render(fps, 1, pygame.Color("white"))
@@ -155,7 +155,6 @@ def updateFPS():
 
 r = Raycaster(screen)
 
-#r.setColor( (128,0,0) )
 #se carga el mapa del nivel del juego en base al .txt
 r.load_map('map.txt')
 
@@ -166,7 +165,7 @@ while isRunning:
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             isRunning = False
-        
+        #to substitute below values
         newX = r.player['x']
         newY = r.player['y']
         #programación de los inputs que acepta el sistema. Usa UP para ir adelante, DOWN para ir ára atrás, LEFT para ir a la izquiera, 
@@ -199,17 +198,17 @@ while isRunning:
                 r.player['x'] = newX
                 r.player['y'] = newY
 
-    screen.fill(pygame.Color("gray")) #Fondo
+    screen.fill(pygame.Color("forestgreen")) #Background
 
-    #Techo
-    screen.fill(pygame.Color("saddlebrown"), (int(r.width / 2), 0, int(r.width / 2),int(r.height / 2)))
+    #Sky
+    screen.fill(pygame.Color("skyblue"), (int(r.width / 2), 0, int(r.width / 2),int(r.height / 2)))
     
-    #Piso
-    screen.fill(pygame.Color("dimgray"), (int(r.width / 2), int(r.height / 2), int(r.width / 2),int(r.height / 2)))
+    #Grass
+    screen.fill(pygame.Color("forestgreen"), (int(r.width / 2), int(r.height / 2), int(r.width / 2),int(r.height / 2)))
 
     r.render()
     
-    # FPS
+    # FPS for the game, displayed in screen
     screen.fill(pygame.Color("black"), (0,0,30,30))
     screen.blit(updateFPS(), (0,0))
     clock.tick(30)  
